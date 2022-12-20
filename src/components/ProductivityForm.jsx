@@ -3,7 +3,7 @@ import Button from "./shared/Button";
 import TextareaAutosize from "react-textarea-autosize";
 import { useState } from "react";
 
-const ProductivityForm = () => {
+const ProductivityForm = ({ addEntry }) => {
   const dateObj = new Date();
   const currentDate = `${dateObj.getMonth()}-${dateObj.getDay()}-${dateObj.getFullYear()}`;
   const [formData, setFormData] = useState({
@@ -35,7 +35,7 @@ const ProductivityForm = () => {
       journal: journal,
       plan: plan,
     };
-    console.log(newFormData);
+    addEntry(newFormData);
   };
 
   return (
