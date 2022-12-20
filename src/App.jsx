@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
+import Modal from "./components/shared/Modal";
 import ProductivityForm from "./components/ProductivityForm";
 import ProductivityStats from "./components/ProductivityStats";
 import ProductivityList from "./components/ProductivityList";
@@ -43,19 +44,29 @@ function App() {
       plan: "procrastinate",
     },
   ]);
+  const [modal, setModal] = useState({
+    isModalOpen: false,
+    confirmDelete: false,
+  });
+
+  const { isModalOpen, confirmDelete } = modal;
 
   const addEntry = (newFormData) => {
     setProductivityData([newFormData, ...productivityData]);
   };
 
   const deleteEntry = (id) => {
-    setProductivityData(productivityData.filter((item) => item.id !== id));
+    setModal({ isModalOpen: true });
+    if (confirmDelete) {
+      setProductivityData(productivityData.filter((item) => item.id !== id));
+      setModal({ confirmDelete: false, isModalOpen: false });
+    }
   };
 
   const editEntry = (editEntry) => {
     console.log(editEntry);
   };
-
+  console.log(modal);
   return (
     <Router>
       <div className="flex flex-col h-screen">
@@ -66,6 +77,7 @@ function App() {
               path="/"
               element={
                 <>
+                  {isModalOpen ? <Modal setModal={setModal} /> : null}
                   <ProductivityForm addEntry={addEntry} />
                   <ProductivityStats />
                   <ProductivityList
