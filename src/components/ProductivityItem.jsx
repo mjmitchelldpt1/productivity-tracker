@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const ProductivityItem = ({ item, deleteEntry }) => {
+const ProductivityItem = ({ item, deleteEntry, setModalOpen, setEntryId }) => {
   return (
     <div className="flex flex-col my-4">
       <CardHeader>
@@ -23,7 +23,10 @@ const ProductivityItem = ({ item, deleteEntry }) => {
           <FontAwesomeIcon
             className="fa-icons hover:text-red-500"
             icon={faXmark}
-            onClick={() => deleteEntry(item.id)}
+            onClick={() => {
+              setEntryId(item.id);
+              setModalOpen(true);
+            }}
           />
         </div>
       </CardHeader>

@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
-const Modal = ({ setModal }) => {
+const Modal = ({ setModalOpen, deleteEntry, entryId }) => {
   return (
     <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none backdrop-brightness-50">
       <div className="relative w-auto my-6 mx-auto max-w-3xl ">
@@ -15,15 +15,16 @@ const Modal = ({ setModal }) => {
           <div className="flex items-center justify-end p-4 border-t border-solid border-white bg-slate-500 rounded-b">
             <button
               className="button-primary"
-              onClick={() =>
-                setModal({ isModalOpen: false, confirmDelete: true })
-              }
+              onClick={() => {
+                deleteEntry(entryId);
+                setModalOpen(false);
+              }}
             >
               Confirm
             </button>
             <button
               className="button-primary hover:bg-red-400"
-              onClick={() => setModal({ isModalOpen: false })}
+              onClick={() => setModalOpen(false)}
             >
               Cancel
             </button>

@@ -44,29 +44,26 @@ function App() {
       plan: "procrastinate",
     },
   ]);
-  const [modal, setModal] = useState({
-    isModalOpen: false,
-    confirmDelete: false,
-  });
-
-  const { isModalOpen, confirmDelete } = modal;
+  const [modalOpen, setModalOpen] = useState(false);
+  const [entryId, setEntryId] = useState(null);
 
   const addEntry = (newFormData) => {
     setProductivityData([newFormData, ...productivityData]);
   };
 
-  const deleteEntry = (id) => {
-    setModal({ isModalOpen: true });
-    if (confirmDelete) {
-      setProductivityData(productivityData.filter((item) => item.id !== id));
-      setModal({ confirmDelete: false, isModalOpen: false });
+  const deleteEntry = (entryId) => {
+    if (entryId !== null) {
+      setProductivityData(
+        productivityData.filter((item) => item.id !== entryId)
+      );
+      setModalOpen(false);
+      setEntryId(null);
     }
   };
 
   const editEntry = (editEntry) => {
     console.log(editEntry);
   };
-  console.log(modal);
   return (
     <Router>
       <div className="flex flex-col h-screen">
@@ -77,12 +74,19 @@ function App() {
               path="/"
               element={
                 <>
-                  {isModalOpen ? <Modal setModal={setModal} /> : null}
+                  {modalOpen ? (
+                    <Modal
+                      setModalOpen={setModalOpen}
+                      entryId={entryId}
+                      deleteEntry={deleteEntry}
+                    />
+                  ) : null}
                   <ProductivityForm addEntry={addEntry} />
                   <ProductivityStats />
                   <ProductivityList
                     productivityData={productivityData}
-                    deleteEntry={deleteEntry}
+                    setEntryId={setEntryId}
+                    setModalOpen={setModalOpen}
                   />
                 </>
               }
