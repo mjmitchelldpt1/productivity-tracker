@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "./shared/Button";
 import TextareaAutosize from "react-textarea-autosize";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const ProductivityForm = ({ addEntry }) => {
+const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
   const dateObj = new Date();
   const currentDate = `${dateObj.getMonth()}-${dateObj.getDay()}-${dateObj.getFullYear()}`;
   const [formData, setFormData] = useState({
@@ -15,13 +15,18 @@ const ProductivityForm = ({ addEntry }) => {
     journal: "",
     plan: "plan",
   });
-
   const { date, topic, rating, achievement, struggle, journal, plan } =
     formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+
+  useEffect(() => {
+    if (entryEditor.edit) {
+      setFormData(entryEditor.item);
+    }
+  }, [entryEditor]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +40,20 @@ const ProductivityForm = ({ addEntry }) => {
       journal: journal,
       plan: plan,
     };
-    addEntry(newFormData);
+    if (entryEditor.edit) {
+      updateEntry(entryId, newFormData);
+    } else {
+      addEntry(newFormData);
+    }
+    setFormData({
+      date: currentDate,
+      topic: "React",
+      rating: 8,
+      achievement: "",
+      struggle: "",
+      journal: "",
+      plan: "",
+    });
   };
 
   return (
@@ -142,7 +160,9 @@ const ProductivityForm = ({ addEntry }) => {
         </div>
 
         <div className="flex justify-end">
-          <Button type="submit">Submit Post</Button>
+          <button type="submit" className="button-primary">
+            {entryEditor.edit ? "Confirm Edit" : "Submit Entry"}
+          </button>
         </div>
       </form>
     </div>
