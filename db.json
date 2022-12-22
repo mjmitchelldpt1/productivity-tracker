@@ -19,6 +19,16 @@
       "journal": "yessss",
       "plan": "plan",
       "id": 2
+    },
+    {
+      "date": "2022-12-22T13:03:45.184Z",
+      "topic": "Context Provider",
+      "rating": 8,
+      "achievement": "Finished allowing Edit and delete.  Page updates correctly.  ",
+      "struggle": "I was missing await on the API call and edit was not re-rendering properly because it was pushing a blank object into current state vs grabbing the proper fetch. ",
+      "journal": "The code was somewhat difficult to write for this project.  I used a lot of state observation to trouble shoot, realizing that my state was firing correctly through the component but I was not rendering what I wanted successfully.  It took a lot of inspection, but I eventually discovered my missing word that caused my app to work successfully.  First time I have also implemented a mock back end with JSON server.  It helped to realize the server was patching correctly in discovering my mistake.  ",
+      "plan": "Set up and learn react Query.  I need to add error and loading handlers. ",
+      "id": 3
     }
   ]
 }
