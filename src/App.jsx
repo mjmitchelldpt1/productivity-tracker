@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
 import Modal from "./components/shared/Modal";
@@ -18,15 +18,39 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [entryId, setEntryId] = useState(null);
 
-  const addEntry = (newFormData) => {
-    setProductivityData([newFormData, ...productivityData]);
+  useEffect(() => {
+    fetchEntries();
+  }, []);
+
+  const fetchEntries = async () => {
+    const response = await fetch(
+      `http://localhost:3000/entries?_sort=id&_order=desc`
+    );
+    const data = await response.json();
+
+    setProductivityData(data);
   };
 
-  const deleteEntry = (entryId) => {
-    if (entryId !== null) {
-      setProductivityData(
-        productivityData.filter((item) => item.id !== entryId)
-      );
+  const addEntry = async (newFormData) => {
+    const response = await fetch(`http://localhost:3000/entries`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newFormData),
+    });
+
+    const data = await response.json();
+
+    setProductivityData([data, ...productivityData]);
+  };
+
+  const deleteEntry = async (id) => {
+    if (id !== null) {
+      await fetch(`http://localhost:3000/entries/${id}`, {
+        method: "DELETE",
+      });
+      setProductivityData(productivityData.filter((item) => item.id !== id));
       setModalOpen(false);
       setEntryId(null);
     }
@@ -39,9 +63,17 @@ function App() {
     });
   };
 
-  const updateEntry = (id, updItem) => {
+  const updateEntry = async (id, updItem) => {
+    const response = await fetch(`http://localhost:3000/entries/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updItem),
+    });
+    const data = await response.json();
     setProductivityData(
-      productivityData.map((item) => (item.id === id ? updItem : item))
+      productivityData.map((item) => (item.id === id ? data : item))
     );
     setEntryEditor({
       item: {},
@@ -69,7 +101,6 @@ function App() {
                     addEntry={addEntry}
                     updateEntry={updateEntry}
                     entryEditor={entryEditor}
-                    entryId={entryId}
                   />
                   <ProductivityStats />
                   <ProductivityList

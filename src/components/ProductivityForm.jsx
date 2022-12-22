@@ -4,8 +4,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useState, useEffect } from "react";
 
 const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
-  const dateObj = new Date();
-  const currentDate = `${dateObj.getMonth()}-${dateObj.getDay()}-${dateObj.getFullYear()}`;
+  const currentDate = new Date();
   const [formData, setFormData] = useState({
     date: currentDate,
     topic: "React",
@@ -40,8 +39,8 @@ const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
       journal: journal,
       plan: plan,
     };
-    if (entryEditor.edit) {
-      updateEntry(entryId, newFormData);
+    if (entryEditor.edit === true) {
+      updateEntry(entryEditor.item.id, newFormData);
     } else {
       addEntry(newFormData);
     }
@@ -156,6 +155,22 @@ const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
             type="text"
             placeholder="Journal"
             value={journal}
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            className=" text-gray-700 text-sm font-bold mb-2"
+            htmlFor="plan"
+          >
+            Plan
+          </label>
+          <TextareaAutosize
+            onChange={handleChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="plan"
+            type="text"
+            placeholder="Plan"
+            value={plan}
           />
         </div>
 
