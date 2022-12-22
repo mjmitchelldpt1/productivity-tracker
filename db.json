@@ -11,16 +11,6 @@
       "plan": "Set up mockAPI for my data and have my data populate on create new post.  Sort by date."
     },
     {
-      "date": "2022-12-22T12:44:56.215Z",
-      "topic": "React",
-      "rating": 8,
-      "achievement": "",
-      "struggle": "",
-      "journal": "yessss",
-      "plan": "plan",
-      "id": 2
-    },
-    {
       "date": "2022-12-22T13:03:45.184Z",
       "topic": "Context Provider",
       "rating": 8,
@@ -29,6 +19,26 @@
       "journal": "The code was somewhat difficult to write for this project.  I used a lot of state observation to trouble shoot, realizing that my state was firing correctly through the component but I was not rendering what I wanted successfully.  It took a lot of inspection, but I eventually discovered my missing word that caused my app to work successfully.  First time I have also implemented a mock back end with JSON server.  It helped to realize the server was patching correctly in discovering my mistake.  ",
       "plan": "Set up and learn react Query.  I need to add error and loading handlers. ",
       "id": 3
+    },
+    {
+      "date": "2022-12-22T14:11:50.847Z",
+      "topic": "React",
+      "rating": 8,
+      "achievement": "",
+      "struggle": "",
+      "journal": "",
+      "plan": "plan",
+      "id": 4
+    },
+    {
+      "date": "2022-12-22T14:12:01.176Z",
+      "topic": "React",
+      "rating": 8,
+      "achievement": "",
+      "struggle": "",
+      "journal": "",
+      "plan": "",
+      "id": 5
     }
   ]
 }

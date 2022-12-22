@@ -18,9 +18,7 @@ const ProductivityItem = ({
         <div className=" flex justify-center bg-indigo-400 border font-bold text-2xl p-1 rounded-full h-10 w-10 border-solid">
           {item.rating}
         </div>
-        <div>
-          Topic: {item.topic} Date: {item.date}
-        </div>
+        <div>Topic: {item.topic}</div>
         <div className="">
           <FontAwesomeIcon
             className="fa-icons hover:text-green-500"

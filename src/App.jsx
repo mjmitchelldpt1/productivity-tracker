@@ -102,7 +102,7 @@ function App() {
                     updateEntry={updateEntry}
                     entryEditor={entryEditor}
                   />
-                  <ProductivityStats />
+                  <ProductivityStats productivityData={productivityData} />
                   <ProductivityList
                     productivityData={productivityData}
                     setEntryId={setEntryId}
