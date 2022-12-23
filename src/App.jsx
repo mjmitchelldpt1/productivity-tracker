@@ -8,6 +8,7 @@ import ProductivityStats from "./components/ProductivityStats";
 import ProductivityList from "./components/ProductivityList";
 import About from "./pages/About";
 import Login from "./pages/Login";
+import axios from "axios";
 
 function App() {
   const [productivityData, setProductivityData] = useState([]);
@@ -23,37 +24,29 @@ function App() {
   }, []);
 
   const fetchEntries = async () => {
-    const response = await fetch(
+    const response = await axios.get(
       `http://localhost:3000/entries?_sort=id&_order=desc`
     );
-    const data = await response.json();
+    const data = response.data;
 
     setProductivityData(data);
   };
 
   const addEntry = async (newFormData) => {
-    const response = await fetch(`http://localhost:3000/entries`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newFormData),
-    });
+    const response = await axios.post(
+      `http://localhost:3000/entries`,
+      newFormData
+    );
+    const newEntry = response.data;
 
-    const data = await response.json();
-
-    setProductivityData([data, ...productivityData]);
+    setProductivityData([newEntry, ...productivityData]);
   };
 
   const deleteEntry = async (id) => {
-    if (id !== null) {
-      await fetch(`http://localhost:3000/entries/${id}`, {
-        method: "DELETE",
-      });
-      setProductivityData(productivityData.filter((item) => item.id !== id));
-      setModalOpen(false);
-      setEntryId(null);
-    }
+    await axios.delete(`http://localhost:3000/entries/${id}`);
+    setProductivityData(productivityData.filter((item) => item.id !== id));
+    setModalOpen(false);
+    setEntryId(null);
   };
 
   const editEntry = (item) => {
@@ -64,16 +57,14 @@ function App() {
   };
 
   const updateEntry = async (id, updItem) => {
-    const response = await fetch(`http://localhost:3000/entries/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updItem),
-    });
-    const data = await response.json();
+    const response = await axios.put(
+      `http://localhost:3000/entries/${id}`,
+      updItem
+    );
+
+    const updatedItem = response.data;
     setProductivityData(
-      productivityData.map((item) => (item.id === id ? data : item))
+      productivityData.map((item) => (item.id === id ? updatedItem : item))
     );
     setEntryEditor({
       item: {},
