@@ -8,10 +8,10 @@ const ProductivityStats = ({ productivityData }) => {
   }, 0);
 
   return (
-    <div>
-      Average: {totalAverage / productivityData.length}
-      Total Average: {totalAverage}
-      Entries: {productivityData.length}
+    <div className="flex gap-5">
+      <span>Average: {totalAverage / productivityData.length} </span>
+      <span>Total Average: {totalAverage} </span>
+      <span>Entries: {productivityData.length} </span>
     </div>
   );
 };
