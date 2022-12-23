@@ -8,7 +8,7 @@ const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
   const [formData, setFormData] = useState({
     date: currentDate,
     topic: "React",
-    rating: 8,
+    rating: null,
     achievement: "",
     struggle: "",
     journal: "",
@@ -18,7 +18,11 @@ const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
     formData;
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+      rating: parseInt(e.target.value),
+    });
   };
 
   useEffect(() => {
@@ -33,7 +37,7 @@ const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
     const newFormData = {
       date: currentDate,
       topic: topic,
-      rating,
+      rating: rating,
       achievement: achievement,
       struggle: struggle,
       journal: journal,
@@ -47,7 +51,7 @@ const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
     setFormData({
       date: currentDate,
       topic: "React",
-      rating: 8,
+      rating: rating,
       achievement: "",
       struggle: "",
       journal: "",
