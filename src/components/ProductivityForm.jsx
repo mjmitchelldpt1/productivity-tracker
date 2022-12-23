@@ -33,7 +33,7 @@ const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
     const newFormData = {
       date: currentDate,
       topic: topic,
-      rating: rating,
+      rating,
       achievement: achievement,
       struggle: struggle,
       journal: journal,
