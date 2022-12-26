@@ -7,12 +7,12 @@ const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
   const currentDate = new Date();
   const [formData, setFormData] = useState({
     date: currentDate,
-    topic: "React",
-    rating: null,
+    topic: "",
+    rating: "",
     achievement: "",
     struggle: "",
     journal: "",
-    plan: "plan",
+    plan: "",
   });
   const { date, topic, rating, achievement, struggle, journal, plan } =
     formData;
