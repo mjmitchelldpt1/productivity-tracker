@@ -19,6 +19,16 @@
       "journal": "The code was somewhat difficult to write for this project.  I used a lot of state observation to trouble shoot, realizing that my state was firing correctly through the component but I was not rendering what I wanted successfully.  It took a lot of inspection, but I eventually discovered my missing word that caused my app to work successfully.  First time I have also implemented a mock back end with JSON server.  It helped to realize the server was patching correctly in discovering my mistake.  ",
       "plan": "Set up and learn react Query.  I need to add error and loading handlers. ",
       "id": 3
+    },
+    {
+      "date": "2022-12-23T15:44:51.960Z",
+      "topic": "React Query",
+      "rating": null,
+      "achievement": "React query and axios successfully on fetched initial data",
+      "struggle": "many errors along the way.  Difficulty with map function through prop drilling.  Axios and Query not initiall working.",
+      "journal": "React query must take an array as a key [\"key], function(fetch) to get the function.  React query will attempt to fire off 3 times.  I was running into difficulty with it pushing the data as undefined because it hadn't finished fetching the data.  I'm still processing and working through this.  There are other features of useQuery I need to learn to make this a smooth transition and also to drill down error and loading handlers.",
+      "plan": "Work on error and loading handlers for this app.  Get all the data management switched over to react query.  Figure out how to get the queried data to other componenets without making multiple requests.  Watch more react-query tutorials and read the docs. ",
+      "id": 4
     }
   ]
 }

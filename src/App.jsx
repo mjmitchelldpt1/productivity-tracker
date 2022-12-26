@@ -9,6 +9,7 @@ import ProductivityList from "./components/ProductivityList";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
   const [productivityData, setProductivityData] = useState([]);
@@ -18,19 +19,6 @@ function App() {
   });
   const [modalOpen, setModalOpen] = useState(false);
   const [entryId, setEntryId] = useState(null);
-
-  useEffect(() => {
-    fetchEntries();
-  }, []);
-
-  const fetchEntries = async () => {
-    const response = await axios.get(
-      `http://localhost:3000/entries?_sort=id&_order=desc`
-    );
-    const data = response.data;
-
-    setProductivityData(data);
-  };
 
   const addEntry = async (newFormData) => {
     const response = await axios.post(
@@ -95,7 +83,6 @@ function App() {
                   />
                   <ProductivityStats productivityData={productivityData} />
                   <ProductivityList
-                    productivityData={productivityData}
                     setEntryId={setEntryId}
                     setModalOpen={setModalOpen}
                     editEntry={editEntry}
