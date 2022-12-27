@@ -4,27 +4,15 @@ import { useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-const ProductivityList = ({ setEntryId, setModalOpen, editEntry }) => {
-  const fetchEntries = async () => {
-    const response = await axios.get(
-      `http://localhost:3000/entries?_sort=id&_order=desc`
-    );
-
-    return response.data;
-  };
-
-  const { data: entryData, status } = useQuery(["entries"], fetchEntries);
-
-  if (status === "loading") {
-    return <p>Loading</p>;
-  }
-
-  if (status === "error") {
-    return <p>Error</p>;
-  }
+const ProductivityList = ({
+  setEntryId,
+  setModalOpen,
+  editEntry,
+  productivityData,
+}) => {
   return (
     <div className="">
-      {entryData.map((item) => (
+      {productivityData.map((item) => (
         <ProductivityItem
           key={item.id}
           item={item}

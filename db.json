@@ -21,14 +21,24 @@
       "id": 3
     },
     {
-      "date": "2022-12-23T15:44:51.960Z",
+      "date": "2022-12-26T12:57:35.782Z",
       "topic": "React Query",
-      "rating": null,
+      "rating": 6,
       "achievement": "React query and axios successfully on fetched initial data",
       "struggle": "many errors along the way.  Difficulty with map function through prop drilling.  Axios and Query not initiall working.",
       "journal": "React query must take an array as a key [\"key], function(fetch) to get the function.  React query will attempt to fire off 3 times.  I was running into difficulty with it pushing the data as undefined because it hadn't finished fetching the data.  I'm still processing and working through this.  There are other features of useQuery I need to learn to make this a smooth transition and also to drill down error and loading handlers.",
       "plan": "Work on error and loading handlers for this app.  Get all the data management switched over to react query.  Figure out how to get the queried data to other componenets without making multiple requests.  Watch more react-query tutorials and read the docs. ",
       "id": 4
+    },
+    {
+      "date": "2022-12-26T20:34:33.127Z",
+      "topic": "React Query",
+      "rating": 7,
+      "achievement": "None",
+      "struggle": "The whole entire morning was a struggle.  I spent 5 hours pouring over react query.  I could not figure out how to get the mutation to recall properly.  There was issues with axios, and I wasn't quite able to understand how to send my data points to my entriesAPI and back to my state.  This is probably a major flaw in my state management that is preventing me from writing accordingly.",
+      "journal": "I also attempted to use Typescript but it was very difficult on where to begin in an application so embedded without typing.  I may have to start over writing this app using typescript, and refactoring.  It is of my best interest to possibly read react documents at the moment and learn how to restructure my application. ",
+      "plan": "Read react documents.  Also just noted a bug in my form that my rating is being reset if I type in any other box.  I'll have to rethink how I write my handleChange event handler. ",
+      "id": 5
     }
   ]
 }
