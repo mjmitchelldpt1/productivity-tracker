@@ -1,25 +1,15 @@
 import React from "react";
 import ProductivityItem from "./ProductivityItem";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import ProductivityContext from "../context/ProductivityContext";
 
-const ProductivityList = ({
-  setEntryId,
-  setModalOpen,
-  editEntry,
-  productivityData,
-}) => {
+const ProductivityList = () => {
+  const { productivityData } = useContext(ProductivityContext);
   return (
     <div className="">
       {productivityData.map((item) => (
-        <ProductivityItem
-          key={item.id}
-          item={item}
-          setEntryId={setEntryId}
-          setModalOpen={setModalOpen}
-          editEntry={editEntry}
-        />
+        <ProductivityItem key={item.id} item={item} />
       ))}
     </div>
   );

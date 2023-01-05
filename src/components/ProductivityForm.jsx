@@ -1,9 +1,14 @@
 import React from "react";
 import Button from "./shared/Button";
 import TextareaAutosize from "react-textarea-autosize";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import ProductivityContext from "../context/ProductivityContext";
+import { useRef } from "react";
 
-const ProductivityForm = ({ addEntry, entryEditor, updateEntry, entryId }) => {
+const ProductivityForm = () => {
+  const { addEntry, updateEntry, entryEditor } =
+    useContext(ProductivityContext);
+
   const currentDate = new Date();
   const [formData, setFormData] = useState({
     date: currentDate,
