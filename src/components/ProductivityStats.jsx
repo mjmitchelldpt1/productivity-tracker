@@ -1,6 +1,8 @@
-import React from "react";
+import { useContext } from "react";
+import ProductivityContext from "../context/ProductivityContext";
 
-const ProductivityStats = ({ productivityData }) => {
+const ProductivityStats = () => {
+  const { productivityData } = useContext(ProductivityContext);
   const totalAverage = productivityData.reduce((total, item) => {
     return total + item.rating;
   }, 0);
