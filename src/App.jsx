@@ -9,6 +9,7 @@ import ProductivityList from "./components/ProductivityList";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import axios from "axios";
+import { API_URL } from "./components/api/config";
 
 function App() {
   const [productivityData, setProductivityData] = useState([]);
@@ -20,9 +21,7 @@ function App() {
   const [entryId, setEntryId] = useState(null);
 
   const fetchEntries = async () => {
-    const response = await axios.get(
-      `http://localhost:3000/entries?_sort=id&_order=desc`
-    );
+    const response = await axios.get(`${API_URL}/entries?_sort=id&_order=desc`);
     setProductivityData(response.data);
   };
 
@@ -31,17 +30,14 @@ function App() {
   }, []);
 
   const addEntry = async (newFormData) => {
-    const response = await axios.post(
-      `http://localhost:3000/entries`,
-      newFormData
-    );
+    const response = await axios.post(`${API_URL}/entries`, newFormData);
     const newEntry = response.data;
 
     setProductivityData([newEntry, ...productivityData]);
   };
 
   const deleteEntry = async (id) => {
-    await axios.delete(`http://localhost:3000/entries/${id}`);
+    await axios.delete(`${API_URL}/entries/${id}`);
     setProductivityData(productivityData.filter((item) => item.id !== id));
     setModalOpen(false);
     setEntryId(null);
@@ -55,10 +51,7 @@ function App() {
   };
 
   const updateEntry = async (id, updItem) => {
-    const response = await axios.put(
-      `http://localhost:3000/entries/${id}`,
-      updItem
-    );
+    const response = await axios.put(`${API_URL}/entries/${id}`, updItem);
 
     const updatedItem = response.data;
     setProductivityData(
