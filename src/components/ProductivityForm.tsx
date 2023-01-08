@@ -1,33 +1,35 @@
-import React from "react";
-import Button from "./shared/Button";
 import TextareaAutosize from "react-textarea-autosize";
 import { useState, useEffect, useContext } from "react";
 import ProductivityContext from "../context/ProductivityContext";
-import { useRef } from "react";
+import { TProductivityData } from "../context/ProductivityContext";
+
+const currentDate = new Date();
+const defaultFormData = {
+  date: currentDate,
+  topic: "",
+  rating: "",
+  achievement: "",
+  struggle: "",
+  journal: "",
+  plan: "",
+};
 
 const ProductivityForm = () => {
   const { addEntry, updateEntry, entryEditor } =
     useContext(ProductivityContext);
 
-  const currentDate = new Date();
-  const [formData, setFormData] = useState({
-    date: currentDate,
-    topic: "",
-    rating: "",
-    achievement: "",
-    struggle: "",
-    journal: "",
-    plan: "",
-  });
+  const [formData, setFormData] = useState<TProductivityData>(defaultFormData);
   const { date, topic, rating, achievement, struggle, journal, plan } =
     formData;
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      //try if statement later
       [e.target.id]: e.target.value,
-      rating: parseInt(e.target.value),
-    });
+    }));
   };
 
   useEffect(() => {
@@ -36,7 +38,7 @@ const ProductivityForm = () => {
     }
   }, [entryEditor]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newFormData = {
@@ -53,15 +55,7 @@ const ProductivityForm = () => {
     } else {
       addEntry(newFormData);
     }
-    setFormData({
-      date: currentDate,
-      topic: "React",
-      rating: rating,
-      achievement: "",
-      struggle: "",
-      journal: "",
-      plan: "",
-    });
+    setFormData(defaultFormData);
   };
 
   return (
@@ -86,22 +80,7 @@ const ProductivityForm = () => {
             value={topic}
           />
         </div>
-        <div className="mb-4">
-          <label
-            className="text-gray-700 text-sm font-bold mb-2"
-            htmlFor="Topic"
-          >
-            Date
-          </label>
-          <input
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="date"
-            type="text"
-            placeholder={currentDate}
-            value={date}
-          />
-        </div>
+
         <div className="mb-4">
           <label
             className=" text-gray-700 text-sm font-bold mb-2"
@@ -114,7 +93,6 @@ const ProductivityForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="rating"
             type="number"
-            placeholder="10"
             value={rating}
           />
         </div>
@@ -129,7 +107,6 @@ const ProductivityForm = () => {
             onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="achievement"
-            type="text"
             placeholder="Achievement"
             value={achievement}
           />
@@ -145,7 +122,6 @@ const ProductivityForm = () => {
             onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="struggle"
-            type="text"
             placeholder="Struggle"
             value={struggle}
           />
@@ -161,7 +137,6 @@ const ProductivityForm = () => {
             onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="journal"
-            type="text"
             placeholder="Journal"
             value={journal}
           />
@@ -177,7 +152,6 @@ const ProductivityForm = () => {
             onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="plan"
-            type="text"
             placeholder="Plan"
             value={plan}
           />

@@ -4,7 +4,7 @@ import ProductivityContext from "../context/ProductivityContext";
 const ProductivityStats = () => {
   const { productivityData } = useContext(ProductivityContext);
   const totalAverage = productivityData.reduce((total, item) => {
-    return total + item.rating;
+    return total + parseInt(item.rating);
   }, 0);
 
   return (

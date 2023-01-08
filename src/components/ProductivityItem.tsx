@@ -1,4 +1,3 @@
-import React from "react";
 import CardHeader from "./shared/CardHeader";
 import CardBody from "./shared/CardBody";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
