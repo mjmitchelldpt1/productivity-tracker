@@ -1,6 +1,7 @@
+import "dotenv/config";
 import { createClient } from "@supabase/supabase-js";
 
-export const API_BASE_URL = import.meta.env.VITE_LOCAL_API_URL;
+export const API_BASE_URL = process.env.LOCAL_API_URL;
 
 //for querying and manage data
 const supabaseUrl = process.env.SUPABASE_URL;
