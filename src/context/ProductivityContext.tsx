@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { API_URL } from "../components/api/config";
+import { API_BASE_URL } from "../components/api/config";
 import { type } from "os";
 
 type ProductictivityProviderProps = {
@@ -59,7 +59,9 @@ export function ProductivityProvider({
   const [entryId, setEntryId] = useState<number | null>(null);
 
   const fetchEntries = async () => {
-    const response = await axios.get(`${API_URL}/entries?_sort=id&_order=desc`);
+    const response = await axios.get(
+      `${API_BASE_URL}/entries?_sort=id&_order=desc`
+    );
     setProductivityData(response.data);
   };
 
@@ -68,14 +70,14 @@ export function ProductivityProvider({
   }, []);
 
   const addEntry = async (newFormData: TProductivityData) => {
-    const response = await axios.post(`${API_URL}/entries`, newFormData);
+    const response = await axios.post(`${API_BASE_URL}/entries`, newFormData);
     const newEntry = response.data;
 
     setProductivityData([newEntry, ...productivityData]);
   };
 
   const deleteEntry = async (id: number) => {
-    await axios.delete(`${API_URL}/entries/${id}`);
+    await axios.delete(`${API_BASE_URL}/entries/${id}`);
     setProductivityData(productivityData.filter((item) => item.id !== id));
     setModalOpen(false);
     setEntryId(null);
@@ -89,7 +91,7 @@ export function ProductivityProvider({
   };
 
   const updateEntry = async (id: number, updItem: TProductivityData) => {
-    const response = await axios.put(`${API_URL}/entries/${id}`, updItem);
+    const response = await axios.put(`${API_BASE_URL}/entries/${id}`, updItem);
 
     const updatedItem = response.data;
     setProductivityData(
