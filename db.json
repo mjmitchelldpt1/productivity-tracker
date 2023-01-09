@@ -39,6 +39,16 @@
       "journal": "I also attempted to use Typescript but it was very difficult on where to begin in an application so embedded without typing.  I may have to start over writing this app using typescript, and refactoring.  It is of my best interest to possibly read react documents at the moment and learn how to restructure my application. ",
       "plan": "Read react documents.  Also just noted a bug in my form that my rating is being reset if I type in any other box.  I'll have to rethink how I write my handleChange event handler. ",
       "id": 5
+    },
+    {
+      "date": "2023-01-08T02:18:37.391Z",
+      "topic": "TypeScript",
+      "rating": "9",
+      "achievement": "I brute forced my entire note taking app into using typescript. ",
+      "struggle": "It was very challenging in ways I hadn't expected.  I thought I understood how data was being passed or neutrals, but I made many mistakes.  ",
+      "journal": "I wrote my entire app in typescript today using typescript docs, attempting to watch tutorials on youtube, and just experimenting with types and exporting.  It was a very, very painful experience.  I still don't have a clue about best practice, and I would really benefit from reviewing the logistics of how I performed this.   ",
+      "plan": "Still 1 mistake remains with typescript I couldn't solve.  I'm going to progress to migrating my app to vercel and to start on the backend. ",
+      "id": 6
     }
   ]
 }

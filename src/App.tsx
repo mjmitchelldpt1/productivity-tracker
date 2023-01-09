@@ -1,15 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
-import Modal from "./components/shared/Modal";
 import ProductivityForm from "./components/ProductivityForm";
 import ProductivityStats from "./components/ProductivityStats";
 import ProductivityList from "./components/ProductivityList";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import { ProductivityProvider } from "./context/ProductivityContext";
-import ProductivityContext from "./context/ProductivityContext";
-import { useContext } from "react";
 
 function App() {
   return (
