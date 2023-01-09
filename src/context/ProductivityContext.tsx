@@ -29,7 +29,7 @@ export type TProductivityContext = {
   productivityData: Array<TProductivityData>;
   entryEditor: TEntryEditor;
   modalOpen: boolean;
-  entryId: number | null;
+  entryId: number;
   fetchEntries: () => void;
   addEntry: (newFormData: TProductivityData) => void;
   deleteEntry: (id: number) => void;
