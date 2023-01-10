@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../components/api/config";
-import { type } from "os";
 
 type ProductictivityProviderProps = {
   children: React.ReactNode;
