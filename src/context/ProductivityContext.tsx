@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { API_BASE_URL } from "../components/api/config";
+import { API_BASE_URL, supabase } from "../components/api/config";
 
 type ProductictivityProviderProps = {
   children: React.ReactNode;
