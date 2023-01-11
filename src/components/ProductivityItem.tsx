@@ -8,8 +8,9 @@ import { useContext } from "react";
 import Modal from "./shared/Modal";
 
 function ProductivityItem({ item }) {
-  const { setEntryId, setModalOpen, editEntry, modalOpen } =
+  const { deleteEntry, setModalOpen, fetchEntry, modalOpen } =
     useContext(ProductivityContext);
+
   return (
     <>
       {modalOpen ? <Modal /> : null}
@@ -23,14 +24,13 @@ function ProductivityItem({ item }) {
             <FontAwesomeIcon
               className="fa-icons hover:text-green-500"
               icon={faPen}
-              onClick={() => editEntry(item)}
+              onClick={() => fetchEntry(item.id)}
             />
             <FontAwesomeIcon
               className="fa-icons hover:text-red-500"
               icon={faXmark}
               onClick={() => {
-                setEntryId(item.id);
-                setModalOpen(true);
+                deleteEntry(item.id);
               }}
             />
           </div>
