@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { API_BASE_URL } from "../components/api/config";
-import { type } from "os";
+import { useQuery } from "@tanstack/react-query";
+import { API_BASE_URL, supabase } from "../components/api/config";
 
 type ProductictivityProviderProps = {
   children: React.ReactNode;
@@ -9,7 +9,6 @@ type ProductictivityProviderProps = {
 
 export type TProductivityData = {
   id?: number;
-  date: Date | string;
   topic: string;
   rating: string;
   achievement: string;
@@ -29,16 +28,14 @@ export type TProductivityContext = {
   productivityData: Array<TProductivityData>;
   entryEditor: TEntryEditor;
   modalOpen: boolean;
-  entryId: number;
   fetchEntries: () => void;
+  fetchEntry: (id: number) => void;
   addEntry: (newFormData: TProductivityData) => void;
   deleteEntry: (id: number) => void;
-  editEntry: (item: TProductivityData) => void;
   updateEntry: (id: number, updItem: TProductivityData) => void;
   setProductivityData: (newProductivityData: TProductivityData[]) => void;
   setEntryEditor: (newEntry: TEntryEditor) => void;
   setModalOpen: (modalChange: boolean) => void;
-  setEntryId: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 const ProductivityContext = createContext<TProductivityContext>(
@@ -56,13 +53,23 @@ export function ProductivityProvider({
     edit: false,
   });
   const [modalOpen, setModalOpen] = useState(false);
-  const [entryId, setEntryId] = useState<number | null>(null);
 
   const fetchEntries = async () => {
-    const response = await axios.get(
-      `${API_BASE_URL}/entries?_sort=id&_order=desc`
-    );
-    setProductivityData(response.data);
+    const { data, error } = await supabase
+      .from("productivity_entries")
+      .select();
+
+    if (!data) {
+      console.log("add some handling for no data");
+    }
+
+    if (error) {
+      console.log("SUPABASE ERROR", error);
+    }
+
+    if (data) {
+      setProductivityData(data);
+    }
   };
 
   useEffect(() => {
@@ -70,33 +77,70 @@ export function ProductivityProvider({
   }, []);
 
   const addEntry = async (newFormData: TProductivityData) => {
-    const response = await axios.post(`${API_BASE_URL}/entries`, newFormData);
-    const newEntry = response.data;
+    const { data, error } = await supabase
+      .from("productivity_entries")
+      .insert(newFormData)
+      .select();
 
-    setProductivityData([newEntry, ...productivityData]);
+    if (error) {
+      console.log("SUPABASE ERROR", error);
+    }
+
+    if (data) {
+      setProductivityData([data[0], ...productivityData]);
+    }
   };
 
   const deleteEntry = async (id: number) => {
-    await axios.delete(`${API_BASE_URL}/entries/${id}`);
-    setProductivityData(productivityData.filter((item) => item.id !== id));
-    setModalOpen(false);
-    setEntryId(null);
+    const { data, error } = await supabase
+      .from("productivity_entries")
+      .delete()
+      .eq("id", id)
+      .select();
+
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      setProductivityData(productivityData.filter((item) => item.id !== id));
+    }
   };
 
-  const editEntry = (item: TProductivityData) => {
-    setEntryEditor({
-      item,
-      edit: true,
-    });
+  const fetchEntry = async (id: number) => {
+    const { data, error } = await supabase
+      .from("productivity_entries")
+      .select()
+      .eq("id", id)
+      //single returns it as an object rather than an array of 1
+      .single();
+
+    if (error) {
+      console.log(error);
+    }
+
+    if (data) {
+      setEntryEditor({
+        item: data,
+        edit: true,
+      });
+    }
   };
 
   const updateEntry = async (id: number, updItem: TProductivityData) => {
-    const response = await axios.put(`${API_BASE_URL}/entries/${id}`, updItem);
+    const { data, error } = await supabase
+      .from("productivity_entries")
+      .update(updItem)
+      .eq("id", id)
+      .select();
 
-    const updatedItem = response.data;
-    setProductivityData(
-      productivityData.map((item) => (item.id === id ? updatedItem : item))
-    );
+    if (error) {
+      console.log(error);
+    }
+
+    if (data) {
+      console.log(productivityData.filter((item) => item.id !== id));
+    }
+
     setEntryEditor({
       item: {},
       edit: false,
@@ -108,15 +152,13 @@ export function ProductivityProvider({
         productivityData,
         entryEditor,
         modalOpen,
-        entryId,
         setProductivityData,
         setEntryEditor,
         setModalOpen,
-        setEntryId,
         fetchEntries,
         addEntry,
         deleteEntry,
-        editEntry,
+        fetchEntry,
         updateEntry,
       }}
     >

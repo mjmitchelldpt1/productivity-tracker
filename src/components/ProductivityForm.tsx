@@ -5,7 +5,6 @@ import { TProductivityData } from "../context/ProductivityContext";
 
 const currentDate = new Date();
 const defaultFormData = {
-  date: currentDate,
   topic: "",
   rating: "",
   achievement: "",
@@ -19,8 +18,7 @@ const ProductivityForm = () => {
     useContext(ProductivityContext);
 
   const [formData, setFormData] = useState<TProductivityData>(defaultFormData);
-  const { date, topic, rating, achievement, struggle, journal, plan } =
-    formData;
+  const { topic, rating, achievement, struggle, journal, plan } = formData;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,7 +40,6 @@ const ProductivityForm = () => {
     e.preventDefault();
 
     const newFormData = {
-      date: currentDate,
       topic: topic,
       rating: rating,
       achievement: achievement,
@@ -78,6 +75,7 @@ const ProductivityForm = () => {
             type="text"
             placeholder="Topic"
             value={topic}
+            required
           />
         </div>
 
@@ -94,6 +92,7 @@ const ProductivityForm = () => {
             id="rating"
             type="number"
             value={rating}
+            required
           />
         </div>
         <div className="mb-4">
