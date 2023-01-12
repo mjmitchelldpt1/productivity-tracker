@@ -18,6 +18,7 @@ const addEntry = async (newFormData: TProductivityData) => {
 
 export default function useAddEntry() {
   const mutation = useMutation({
+    mutationKey: ["productivityData"],
     mutationFn: addEntry,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["productivityData"] });

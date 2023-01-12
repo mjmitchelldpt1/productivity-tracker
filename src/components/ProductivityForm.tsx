@@ -17,7 +17,6 @@ const ProductivityForm = () => {
   const { topic, rating, achievement, struggle, journal, plan } = formData;
 
   const { mutate, isLoading, error } = useAddEntry();
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
