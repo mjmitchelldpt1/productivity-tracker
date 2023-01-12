@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { TProductivityData } from "../../context/ProductivityContext";
+import { queryClient } from "../../main";
 import { supabase } from "../api/config";
 
-const fetchEntry = async (id: number) => {
+type TEntry = {
+  id: number;
+};
+
+const fetchEntry = async (id: number): Promise<TEntry> => {
   const { data, error } = await supabase
     .from("productivity_entries")
     .select()
@@ -14,15 +19,18 @@ const fetchEntry = async (id: number) => {
     console.log(error);
   }
 
-  if (data) {
-    return data;
-  }
+  return data;
 };
 
-export default function useFetchEntry() {
-  const productivityEntry = useQuery({
-    queryKey: ["productivity_entries"],
-    queryFn: fetchEntry,
+export default function useFetchEntry(id: number) {
+  const singleEntry = useQuery({
+    queryKey: ["entry", id],
+    queryFn: () => fetchEntry(id),
+    initialData: () => {
+      return queryClient
+        .getQueryData(["productivityData"])
+        ?.find((d) => d.id === id);
+    },
   });
-  return productivityEntry;
+  return singleEntry;
 }
