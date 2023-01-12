@@ -1,14 +1,21 @@
-import React from "react";
 import ProductivityItem from "./ProductivityItem";
-import { useState, useContext } from "react";
-import axios from "axios";
-import ProductivityContext from "../context/ProductivityContext";
+import useProductivityData from "./hooks/UseProductivityData";
 
 const ProductivityList = () => {
-  const { productivityData } = useContext(ProductivityContext);
+  const { data, isLoading, error } = useProductivityData();
+
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
+
+  if (error) {
+    console.log(error);
+    return <p>Error...</p>;
+  }
+
   return (
     <div className="">
-      {productivityData.map((item) => (
+      {data?.map((item) => (
         <ProductivityItem key={item.id} item={item} />
       ))}
     </div>
