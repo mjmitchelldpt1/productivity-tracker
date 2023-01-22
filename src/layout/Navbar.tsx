@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../components/api/config";
 
@@ -7,7 +7,31 @@ type userDisplay = {
 };
 
 function Navbar() {
-  const [displayUser, setDisplayUser] = useState("User Display");
+  const [displayUser, setDisplayUser] = useState(null);
+
+  async function retrieveUser() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      setDisplayUser(user.email);
+    } else {
+      setDisplayUser(null);
+    }
+  }
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (session) {
+      retrieveUser();
+    }
+  });
+
+  async function handleLogout() {
+    let { error } = await supabase.auth.signOut();
+    setDisplayUser(null);
+    if (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <nav className="shadow-lg bg-gray-900 text-white h-16 ">
@@ -31,6 +55,9 @@ function Navbar() {
         <Link to="/login" className="navbar-button">
           Login
         </Link>
+        <button onClick={handleLogout} className="navbar-button">
+          LogOut
+        </button>
       </div>
     </nav>
   );
