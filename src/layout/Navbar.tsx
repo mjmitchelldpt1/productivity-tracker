@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../components/api/config";
 
-type userDisplay = {
-  displayUser: string;
-};
-
 function Navbar() {
-  const [displayUser, setDisplayUser] = useState(null);
+  const [displayUser, setDisplayUser] = useState<string | undefined | null>(
+    null
+  );
 
   async function retrieveUser() {
     const {
@@ -24,6 +22,10 @@ function Navbar() {
       retrieveUser();
     }
   });
+
+  useEffect(() => {
+    retrieveUser();
+  }, []);
 
   async function handleLogout() {
     let { error } = await supabase.auth.signOut();
@@ -49,15 +51,15 @@ function Navbar() {
         <Link to="/about" className="navbar-button">
           About
         </Link>
-        <Link to="/test" className="navbar-button">
-          Test
-        </Link>
-        <Link to="/login" className="navbar-button">
-          Login
-        </Link>
-        <button onClick={handleLogout} className="navbar-button">
-          LogOut
-        </button>
+        {displayUser ? (
+          <button onClick={handleLogout} className="navbar-button">
+            LogOut
+          </button>
+        ) : (
+          <Link to="/login" className="navbar-button">
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   );

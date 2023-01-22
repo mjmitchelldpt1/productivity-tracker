@@ -7,7 +7,6 @@ import ProductivityList from "./components/ProductivityList";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import { ProductivityProvider } from "./context/ProductivityContext";
-import Authorize from "./pages/Authorize";
 
 function App() {
   return (
@@ -28,7 +27,6 @@ function App() {
                 }
               />
               <Route path="/about" element={<About />} />
-              <Route path="/test" element={<Authorize />} />
               <Route path="/login" element={<Login />} />
             </Routes>
           </div>
