@@ -7,6 +7,7 @@ import ProductivityList from "./components/ProductivityList";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import { ProductivityProvider } from "./context/ProductivityContext";
+import Authorize from "./pages/Authorize";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <Router>
         <div className="flex flex-col h-screen">
           <Navbar />
-          <main className="flex flex-auto items-center flex-col  bg-slate-400 text-white text-xl">
+          <div className="flex flex-auto items-center flex-col bg-slate-600 text-white text-xl">
             <Routes>
               <Route
                 path="/"
@@ -27,9 +28,10 @@ function App() {
                 }
               />
               <Route path="/about" element={<About />} />
+              <Route path="/test" element={<Authorize />} />
               <Route path="/login" element={<Login />} />
             </Routes>
-          </main>
+          </div>
           <Footer />
         </div>
       </Router>

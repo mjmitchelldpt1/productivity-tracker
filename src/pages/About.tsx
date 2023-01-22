@@ -1,11 +1,16 @@
-import React from 'react'
+import { supabase } from "../components/api/config";
 
 function About() {
-  return (
-    <div>
-      About
-    </div>
-  )
+  async function retrieveUser() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      console.log(user);
+    }
+  }
+
+  return <button onClick={() => retrieveUser()}>Console User</button>;
 }
 
-export default About
+export default About;
