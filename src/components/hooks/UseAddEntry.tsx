@@ -1,12 +1,18 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, QueryClient } from "@tanstack/react-query";
 import { TProductivityData } from "../../context/ProductivityContext";
-import { queryClient } from "../../main";
 import { supabase } from "../api/config";
 
+const queryClient1 = new QueryClient();
+
 const addEntry = async (newFormData: TProductivityData) => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { data, error } = await supabase
     .from("productivity_entries")
-    .insert(newFormData)
+    .insert({ user_id: user?.id, ...newFormData })
+    .eq("user_id", user?.id)
     .select();
 
   if (error) {
@@ -21,7 +27,7 @@ export default function useAddEntry() {
     mutationKey: ["productivityData"],
     mutationFn: addEntry,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["productivityData"] });
+      queryClient1.invalidateQueries({ queryKey: ["productivityData"] });
     },
   });
   return mutation;

@@ -1,16 +1,14 @@
 import { supabase } from "../components/api/config";
+import { retrieveUser } from "../components/hooks/RetrieveUser";
 
 function About() {
-  async function retrieveUser() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (user) {
-      console.log(user);
-    }
-  }
+  const data = retrieveUser();
 
-  return <button onClick={() => retrieveUser()}>Console User</button>;
+  return (
+    <>
+      <button onClick={() => console.log(data)}>Console User</button>
+    </>
+  );
 }
 
 export default About;

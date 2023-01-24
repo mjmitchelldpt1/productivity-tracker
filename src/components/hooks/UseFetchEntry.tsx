@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, QueryClient } from "@tanstack/react-query";
 import { TProductivityData } from "../../context/ProductivityContext";
-import { queryClient } from "../../main";
 import { supabase } from "../api/config";
+
+const queryClient = new QueryClient();
 
 type TEntry = {
   id: number;

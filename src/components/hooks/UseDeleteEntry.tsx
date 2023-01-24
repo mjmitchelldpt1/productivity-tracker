@@ -1,6 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, QueryClient } from "@tanstack/react-query";
 import { supabase } from "../api/config";
-import { queryClient } from "../../main";
+
+const queryClient = new QueryClient();
 
 const deleteEntry = async (id: number) => {
   const { data, error } = await supabase
