@@ -1,17 +1,16 @@
-import { useContext } from "react";
-import ProductivityContext from "../context/ProductivityContext";
-
+import useProductivityData from "./hooks/UseProductivityData";
 const ProductivityStats = () => {
-  const { productivityData } = useContext(ProductivityContext);
-  const totalAverage = productivityData.reduce((total, item) => {
+  const { data } = useProductivityData();
+
+  const totalAverage = (data || []).reduce((total, item) => {
     return total + parseInt(item.rating);
   }, 0);
 
   return (
     <div className="flex gap-5">
-      <span>Average: {totalAverage / productivityData.length} </span>
+      <span>Average: {totalAverage / (data || []).length} </span>
       <span>Total Average: {totalAverage} </span>
-      <span>Entries: {productivityData.length} </span>
+      <span>Entries: {(data || []).length} </span>
     </div>
   );
 };

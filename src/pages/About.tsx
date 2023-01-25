@@ -1,11 +1,14 @@
-import React from 'react'
+import { supabase } from "../components/api/config";
+import { retrieveUser } from "../components/hooks/RetrieveUser";
 
 function About() {
+  const data = retrieveUser();
+
   return (
-    <div>
-      About
-    </div>
-  )
+    <>
+      <button onClick={() => console.log(data)}>Console User</button>
+    </>
+  );
 }
 
-export default About
+export default About;

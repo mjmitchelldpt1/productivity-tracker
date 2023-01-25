@@ -1,9 +1,8 @@
 import TextareaAutosize from "react-textarea-autosize";
-import { useState, useEffect, useContext } from "react";
-import ProductivityContext from "../context/ProductivityContext";
+import { useState } from "react";
 import { TProductivityData } from "../context/ProductivityContext";
+import useAddEntry from "./hooks/UseAddEntry";
 
-const currentDate = new Date();
 const defaultFormData = {
   topic: "",
   rating: "",
@@ -14,12 +13,10 @@ const defaultFormData = {
 };
 
 const ProductivityForm = () => {
-  const { addEntry, updateEntry, entryEditor } =
-    useContext(ProductivityContext);
-
   const [formData, setFormData] = useState<TProductivityData>(defaultFormData);
   const { topic, rating, achievement, struggle, journal, plan } = formData;
 
+  const { mutate, isLoading, error } = useAddEntry();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -29,12 +26,6 @@ const ProductivityForm = () => {
       [e.target.id]: e.target.value,
     }));
   };
-
-  useEffect(() => {
-    if (entryEditor.edit) {
-      setFormData(entryEditor.item);
-    }
-  }, [entryEditor]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,13 +38,19 @@ const ProductivityForm = () => {
       journal: journal,
       plan: plan,
     };
-    if (entryEditor.edit === true) {
-      updateEntry(entryEditor.item.id, newFormData);
-    } else {
-      addEntry(newFormData);
-    }
+    mutate(newFormData);
+
     setFormData(defaultFormData);
   };
+
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
+
+  if (error) {
+    console.log(error);
+    return <p>Error...</p>;
+  }
 
   return (
     <div className="flex flex-col bg-amber-200 p-2 my-4">
@@ -158,7 +155,7 @@ const ProductivityForm = () => {
 
         <div className="flex justify-end">
           <button type="submit" className="button-primary">
-            {entryEditor.edit ? "Confirm Edit" : "Submit Entry"}
+            Submit Entry
           </button>
         </div>
       </form>

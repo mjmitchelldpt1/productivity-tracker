@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer components {
-  .main {
-    @apply container bg-slate-400;
-  }
   .navbar-button {
     @apply py-1 px-2
         hover:cursor-pointer hover:bg-red-400 hover:scale-105 hover:shadow-lg

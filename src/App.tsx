@@ -14,7 +14,7 @@ function App() {
       <Router>
         <div className="flex flex-col h-screen">
           <Navbar />
-          <main className="flex flex-auto items-center flex-col  bg-slate-400 text-white text-xl">
+          <div className="flex flex-auto items-center flex-col bg-slate-600 text-white text-xl">
             <Routes>
               <Route
                 path="/"
@@ -29,7 +29,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
             </Routes>
-          </main>
+          </div>
           <Footer />
         </div>
       </Router>

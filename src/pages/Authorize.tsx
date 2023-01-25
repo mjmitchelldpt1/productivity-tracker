@@ -1,7 +1,7 @@
 import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { supabase } from "../components/api/config";
 
-function Login() {
+function Authorize() {
   return (
     <div className="border color-white">
       <Auth
@@ -14,4 +14,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Authorize;
