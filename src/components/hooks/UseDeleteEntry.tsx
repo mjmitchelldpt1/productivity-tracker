@@ -1,7 +1,5 @@
-import { useMutation, QueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../api/config";
-
-const queryClient = new QueryClient();
 
 const deleteEntry = async (id: number) => {
   const { data, error } = await supabase
@@ -19,12 +17,13 @@ const deleteEntry = async (id: number) => {
 };
 
 export default function useDeleteEntry() {
-  const deletedEntry = useMutation({
+  const queryClient = useQueryClient();
+  const deletedEntryMutation = useMutation({
     mutationFn: deleteEntry,
     mutationKey: ["productivityData"],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["productivityData"] });
     },
   });
-  return deletedEntry;
+  return deletedEntryMutation;
 }

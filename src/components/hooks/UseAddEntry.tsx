@@ -1,8 +1,6 @@
-import { useMutation, QueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TProductivityData } from "../../context/ProductivityContext";
 import { supabase } from "../api/config";
-
-const queryClient1 = new QueryClient();
 
 const addEntry = async (newFormData: TProductivityData) => {
   const {
@@ -23,11 +21,13 @@ const addEntry = async (newFormData: TProductivityData) => {
 };
 
 export default function useAddEntry() {
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationKey: ["productivityData"],
     mutationFn: addEntry,
-    onSuccess: () => {
-      queryClient1.invalidateQueries({ queryKey: ["productivityData"] });
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["productivityData", data.id], data);
+      queryClient.invalidateQueries(["productivityData"]);
     },
   });
   return mutation;
