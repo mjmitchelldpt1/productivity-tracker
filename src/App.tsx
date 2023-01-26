@@ -6,7 +6,7 @@ import ProductivityStats from "./components/ProductivityStats";
 import ProductivityList from "./components/ProductivityList";
 import About from "./pages/About";
 import Login from "./pages/Login";
-import { ProductivityProvider } from "./context/ProductivityContext";
+import HookForm from "./components/HookForm";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
                   <ProductivityForm />
                   <ProductivityStats />
                   <ProductivityList />
+                  <HookForm />
                 </>
               }
             />

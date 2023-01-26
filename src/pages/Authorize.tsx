@@ -3,7 +3,7 @@ import { supabase } from "../components/api/config";
 
 function Authorize() {
   return (
-    <div className="border color-white">
+    <div>
       <Auth
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
